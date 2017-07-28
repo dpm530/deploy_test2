@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Home Page</title>
+   </head>
+   <body>
+      <h1>Hello {{current_user.name}}!</h1>
+      <button><a href='/logout'>Logout</a></button>
+      {% if friends %}
+         <h1>Here is List of your Friends:</h1>
+      {% else %}
+         <h1>You don't have Friends yet.</h1>
+      {% endif %}   
+      <table>
+         <thead>
+            <th>Alias</th>
+            <th>Action</th>
+         </thead>
+         <tbody>
+            {% for friend in friends %}
+               <tr>
+                  <td>{{friend.alias}}</td>
+                  <td>
+                     <form action='/profilePage/{{friend.id}}' method='post'>
+                        {% csrf_token %}
+                        <input type='submit' value='View Profle'>
+                     </form>
+                  </td>
+                  <td>
+                     <form action='/removeFriend/{{friend.id}}' method='post'>
+                        {% csrf_token %}
+                        <input type='submit' value='Remove Friend'>
+                     </form>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      <br>
+      <h1>Other Users not on your Friend List:</h1>
+      <table>
+         <thead>
+            <th>Alias</th>
+            <th>Action</th>
+         </thead>
+         <tbody>
+            {% for other_user in users %}
+               <tr>
+                  <td><a href='profilePage/{{other_user.id}}'>{{other_user.alias}}</a></td>
+                  <td><form action='/addFriend/{{other_user.id}}' method='post'>
+                        {% csrf_token %}
+                        <input type='submit' value='Add Friend'>
+                     </form>
+                  </td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </body>
+</html>

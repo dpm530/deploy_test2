@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Index</title>
+   </head>
+   <body>
+      {% if messages %}
+         {% for message in messages %}
+            <ul>
+               <li>{{message}}</li>
+            </ul>
+         {% endfor %}
+      {% endif %}
+      <div>
+      <h1>Registration:</h1>
+      <form action='/register' method='post'>
+         {% csrf_token %}
+         <table>
+            <tr>
+               <td>Name:</td>
+               <td><input type='text' name='name'/></td>
+            </tr>
+            <tr>
+               <td>Alias:</td>
+               <td><input type='text' name='alias'/></td>
+            </tr>
+            <tr>
+               <td>Email:</td>
+               <td><input type='email' name='email'/></td>
+            </tr>
+            <tr>
+               <td>Password</td>
+               <td> <input type='password' name='password'/></td>
+            </tr>
+            <tr>
+               <p>*Password should be at least 8 characters.</p>
+               <td>Confirm Password:</td>
+               <td><input type='password' name='password_confirmation'/></td>
+            </tr>
+            <tr>
+               <td>Date of Birth:</td>
+               <td><input type="date" name="created_at"/></td>
+            </tr>
+         </table><br>
+         <input type='submit' value='Register'/>
+      </form>
+      </div>
+      <br>
+      <div>
+      <h1>Login:</h1>
+      <form action='/login' method='post'>
+         {% csrf_token %}
+         <table>
+            <tr>
+               <td>Email:</td>
+               <td><input type='email' name='email'/></td>
+            </tr>
+            <tr>
+               <td>Password</td>
+               <td> <input type='password' name='password'/></td>
+            </tr>
+         </table><br>
+         <input type='submit' value='Login'/>
+      </form>
+      </div>
+   </body>
+</html>
